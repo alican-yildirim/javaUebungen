@@ -1,7 +1,5 @@
-import java.util.Scanner;
 import java.util.HashMap;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import java.awt.event.*;
 
