@@ -6,7 +6,7 @@ import java.awt.event.*;
 
 public class App {
 
-    public static final String pw = "ali";
+    private static final String pw = "ali";
     public static int wrongTrys = 0;
 
     public static HashMap<Integer,String> trysList = new HashMap<Integer,String>();
@@ -44,26 +44,36 @@ public class App {
             
             public void actionPerformed(ActionEvent e){
                 
-                if(App.pw.equals(txtField.getText())){
+                if(!txtField.getText().isEmpty()){
 
-                    String finallyOutput = "Das Passwort war richtig!!!!\nSie haben " + wrongTrys + " Versuche gebraucht:\n\n";
+                    if(App.pw.equals(txtField.getText())){
 
-                    for(Integer key : trysList.keySet()){
-                        
-                        finallyOutput += key + " - Versuch: " + trysList.get(key) + "\n";
-                        
+                        String finallyOutput = "Das Passwort war richtig!!!!\nSie haben " + wrongTrys + " Versuche gebraucht:\n\n";
+
+                        for(Integer key : trysList.keySet()){
+                            
+                            finallyOutput += key + " - Versuch: " + trysList.get(key) + "\n";
+                            
+                        }
+
+                        label.setText(finallyOutput);
+                        txtField.setVisible(false);
+                        btn.setVisible(false);
+                        label.setBounds(0,0,6000,400);
+            
+                    }else{
+
+                        App.missErfolg(label,txtField);
+
                     }
 
-                    label.setText(finallyOutput);
-                    txtField.setVisible(false);
-                    btn.setVisible(false);
-                    label.setBounds(0,0,6000,400);
-        
                 }else{
 
-                    App.missErfolg(label,txtField);
+                    label.setText("Geben Sie etwas ein!!!");
 
-                }        
+                }
+
+                txtField.setText("");
                 
             }
             
