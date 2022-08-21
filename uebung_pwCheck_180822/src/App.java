@@ -5,11 +5,12 @@ import java.awt.event.*;
 
 public class App {
 
-    private static final String pw = "ali";
+    private static final String pw = "ali"; // Valid Password!
     private static int wrongTrys = 0;
-    private static int trys = 5;
+    private static final int maximumTrys = 6; // Maximum Trys!
+    private static int availableTrys = maximumTrys;
 
-    public static HashMap<Integer,String> trysList = new HashMap<Integer,String>();
+    private static HashMap<Integer,String> trysList = new HashMap<Integer,String>();
 
     private static void missErfolg(JLabel label,JTextField txt) {
         
@@ -21,24 +22,10 @@ public class App {
 
     private static void lowerProgressBar(JProgressBar progressBalken){
 
-        int subtractionOperand = progressBalken.getMaximum() / 5;
+        int subtractionOperand = progressBalken.getMaximum() / maximumTrys;
 
         int newValue = progressBalken.getValue() - subtractionOperand;
-        //progressBalken.setValue(newValue);
-        for(int i = progressBalken.getValue();i > newValue;i--){
-
-            progressBalken.setValue(i);
-
-            try{
-
-                Thread.sleep(30);
-                progressBalken.setVisible(true);
-
-            }catch(Exception e){
-                System.out.println("Fehler in der Methode lowerProgressBar!!!");
-            }
-            
-        }
+        progressBalken.setValue(availableTrys == 0 ? 0 : newValue);
 
     }
 
@@ -63,6 +50,8 @@ public class App {
         progressBalken.setValue(100);
         progressBalken.setBounds(200,50,200,50);
         progressBalken.setVisible(true);
+        progressBalken.setStringPainted(true);
+        progressBalken.setString(Integer.toString(availableTrys));
         frame.add(progressBalken);
 
         JButton btn = new JButton("Prüfen!");
@@ -70,13 +59,11 @@ public class App {
 
         frame.add(btn);
 
-        frame.setVisible(true);
-
         btn.addActionListener(new ActionListener() {
             
             public void actionPerformed(ActionEvent e){
 
-                if(trys != 0){
+                if(availableTrys != 0){
 
                     if(!txtField.getText().isEmpty()){
 
@@ -97,11 +84,10 @@ public class App {
                 
                         }else{
 
-                            trys--;
+                            availableTrys--;
+                            progressBalken.setString(Integer.toString(availableTrys));
                             App.missErfolg(label,txtField);
                             App.lowerProgressBar(progressBalken);
-
-
 
                         }
 
@@ -123,23 +109,16 @@ public class App {
             
         });
 
-        // int subtractionOperand = progressBalken.getMaximum() / 5;
+        frame.setVisible(true);
 
-        // int newValue = progressBalken.getValue() - subtractionOperand;
-        // //progressBalken.setValue(newValue);
-        // for(int i = progressBalken.getValue();i > 50;i--){
 
-        //     progressBalken.setValue(i);
+        for(int i = 0;i < 100;i++){
 
-        //     try{
+            progressBalken.setValue(i);
 
-        //         Thread.sleep(30);
-
-        //     }catch(Exception e){
-        //         System.out.println("Fehler in der Methode lowerProgressBar!!!");
-        //     }
+            Thread.sleep(20);
             
-        // }
+        }
 
     }
 }
