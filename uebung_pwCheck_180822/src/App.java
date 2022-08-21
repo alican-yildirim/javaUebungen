@@ -7,6 +7,7 @@ public class App {
 
     private static final String pw = "ali";
     private static int wrongTrys = 0;
+    private static int trys = 5;
 
     public static HashMap<Integer,String> trysList = new HashMap<Integer,String>();
 
@@ -30,9 +31,10 @@ public class App {
 
             try{
 
-                Thread.sleep(10);
+                Thread.sleep(30);
+                progressBalken.setVisible(true);
 
-            }catch(InterruptedException e){
+            }catch(Exception e){
                 System.out.println("Fehler in der Methode lowerProgressBar!!!");
             }
             
@@ -74,7 +76,7 @@ public class App {
             
             public void actionPerformed(ActionEvent e){
 
-                if(progressBalken.getValue() != 0){
+                if(trys != 0){
 
                     if(!txtField.getText().isEmpty()){
 
@@ -95,8 +97,11 @@ public class App {
                 
                         }else{
 
+                            trys--;
                             App.missErfolg(label,txtField);
                             App.lowerProgressBar(progressBalken);
+
+
 
                         }
 
@@ -118,6 +123,23 @@ public class App {
             
         });
 
+        // int subtractionOperand = progressBalken.getMaximum() / 5;
+
+        // int newValue = progressBalken.getValue() - subtractionOperand;
+        // //progressBalken.setValue(newValue);
+        // for(int i = progressBalken.getValue();i > 50;i--){
+
+        //     progressBalken.setValue(i);
+
+        //     try{
+
+        //         Thread.sleep(30);
+
+        //     }catch(Exception e){
+        //         System.out.println("Fehler in der Methode lowerProgressBar!!!");
+        //     }
+            
+        // }
 
     }
 }
