@@ -7,16 +7,22 @@ public class interval {
 
     public static Timer timer = new Timer();
 
+    public static String aktuelleZeit(){
+
+        LocalTime time = LocalTime.now();
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
+
+        return time.format(format);
+
+    }
+
     public static void main(String[] args) throws Exception {
 
         timer.scheduleAtFixedRate(new TimerTask(){
             
             public void run(){
 
-                LocalTime time = LocalTime.now();
-                DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm:ss");
-
-                System.out.println(time.format(format));
+                System.out.println(aktuelleZeit());
 
             }
 
